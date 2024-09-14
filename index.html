@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="page">
+    <div class="container">
+            <div class="input" >
+                <div class="one">
+                    <p>Day</p>
+                    <input type="text" placeholder="DD" id="input1">
+                </div>
+                <div class="two">
+                    <p>Month</p>
+                    <input type="text" placeholder="MM" id="input2">
+                </div>
+                <div class="three">
+                    <p>Year</p>
+                    <input type="text" placeholder="YYYY" id="input3">
+                </div>
+            </div>
+
+            <div class="line">
+                <hr>
+                <button onclick="click1()"><img src="1.png" alt="" ></button>
+            </div>
+
+            <div class="output">
+                <div >
+                    <span id="span1" class="active">--</span>
+                    <span>years</span>  
+                </div>
+                <div >
+                    <span id="span2" class="active">--</span> 
+                    <span >months</span>
+                </div>
+                <div >
+                    <span id="span3" class="active">--</span> 
+                    <span>days</span>
+                </div>
+                
+            </div>
+            
+                <footer>
+                    <span class="one1">
+                        <span id="one11"></span>
+                        <span id="one12"></span>
+                    </span>
+                    <span class="two1">
+                        <span>Coded by <a href="https://mail.google.com/mail/u/0/">Mohammad Diab</a></span>
+                    </span>
+                </footer>
+            
+
+    </div>
+</div>
+
+
+
+
+
+<script>
+
+let date1 = new Date();
+document.getElementById("one11").innerHTML = date1.toLocaleDateString();
+setInterval(myfuntion,100);
+function myfuntion(){
+    let date1 = new Date();
+    document.getElementById("one12").innerHTML = date1.toLocaleTimeString();
+}
+
+
+var year ,month,day;
+day = document.getElementById("input1");
+month = document.getElementById("input2");
+year = document.getElementById("input3");
+
+
+var span1 = document.getElementById("span1");
+var span2 = document.getElementById("span2");
+var span3 = document.getElementById("span3");
+var count1 = 0;
+var count2 = 0;
+var count3 = 0;
+
+function click1(){
+
+    if(day.value.length == 0 || day.value > 31){
+         day.style.borderColor = "red";
+         span1.innerHTML = "--";
+         span2.innerHTML = "--";
+         span3.innerHTML = "--";
+         day.focus();
+         exit();
+    }
+    else{
+        day.style.borderColor = "black";
+    }
+    if(month.value.length == 0 || month.value > 12){
+         month.style.borderColor = "red";
+         span1.innerHTML = "--";
+        span2.innerHTML = "--";
+        span3.innerHTML = "--";
+        month.focus();
+         exit();
+    }
+    else{
+        month.style.borderColor = "black";
+    }
+    if(year.value.length == 0 || year.value.length != 4 ){
+         year.style.borderColor = "red";
+         span1.innerHTML = "--";
+        span2.innerHTML = "--";
+        span3.innerHTML = "--";
+        year.focus();
+         exit();
+    }
+    else{
+        year.style.borderColor = "black";
+    }
+
+    var today = new Date();
+    let y = parseFloat(parseInt(today.getFullYear())  -  parseInt(year.value) );
+    let m = parseFloat(parseInt(today.getMonth()) + 1 -  parseInt(month.value) );
+    let d = parseFloat(parseInt(today.getDate()) -  parseInt(day.value));
+
+    if (d < 0) {
+        m--;
+        d += new Date(today.getFullYear(), today.getMonth(), 0).getDate(); // Days in last month
+    }
+
+    if (m < 0) {
+        y--;
+        m += 12;
+    }
+
+    console.log(`year : ${y}`);
+    console.log(`month : ${m}`);
+    console.log(`days : ${d}`);
+
+    
+     if(isNaN(d) || isNaN(m) || isNaN(y)){
+        span1.innerHTML = "--";
+        span2.innerHTML = "--";
+        span3.innerHTML = "--";
+         exit();
+     }
+
+
+    let a =  setInterval(span11, 10);
+    function span11(){
+        span1.innerHTML = count1++;
+        if(span1.innerHTML == y ){
+            clearInterval(a);
+            count1 = 0;
+        }
+    }
+    let b =  setInterval(span22, 10);
+    function span22(){
+        span2.innerHTML = count2++;
+        if(span2.innerHTML == m ){
+            clearInterval(b);
+            count2=0;
+        }
+    }
+    let c =  setInterval(span33, 10);
+    function span33(){
+        span3.innerHTML = count3++;
+        if(span3.innerHTML == d ){
+            clearInterval(c);
+            count3=0;
+        }
+    }
+
+
+}
+
+</script>
+
+
+
+</body>
+</html>
